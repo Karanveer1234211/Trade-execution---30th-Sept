@@ -53,10 +53,10 @@ import production_models as PM     # noqa: E402
 import paper_pipeline as PP        # noqa: E402
 import stage_c_screen as SCS       # noqa: E402
 
-CODE_VERSION = "preflight v1.7"   # v1.7: expects paper_pipeline v1.6 (v1.6: daily_run v5.4, run_daily --no-panel)
+CODE_VERSION = "preflight v1.8"   # v1.8: soul_meta v1, stage_e_execution v1.2, the amended re-ranker declaration (v1.7: paper v1.6)
 EXPECTED = {"paper_pipeline.py": "paper_pipeline v1.6", "production_models.py": "production_models v1.1",
-            "soul_v4.py": "soul_v4 v1.1", "freeze_engines.py": "freeze_engines v1", "preflight.py": "preflight v1.7",
-            "stage_e_execution.py": "stage_e_execution v1.1", "stage_e_paths.py": "stage_e_paths v1",
+            "soul_v4.py": "soul_v4 v1.1", "freeze_engines.py": "freeze_engines v1", "preflight.py": "preflight v1.8", "soul_meta.py": "soul_meta v1",
+            "stage_e_execution.py": "stage_e_execution v1.2", "stage_e_paths.py": "stage_e_paths v1",
             "stage_d_gate.py": "stage_d_gate v1", "stage_d_forensics.py": "stage_d_forensics v1",
             "stage_dx_ensemble.py": "stage_dx_ensemble v1", "stage_dc_model.py": "stage_dc_model v1.1",
             "stage_c_features.py": "stage_c_features v1", "stage_c_screen.py": "stage_c_screen v1",
@@ -67,7 +67,7 @@ DECLARATIONS = {"EXPERIMENT_OC_FAMILY.json": "1f5c13384e36e759", "STAGE_D_DECLAR
                 "FORENSICS_DECLARATION.json": "410278b832f2aa90", "STAGE_D2_DECLARATION.json": "1de7aa2028f1c21a",
                 "STAGE_C_DECLARATION.json": "e945f62dd321625c", "STAGE_DX_DECLARATION.json": "8a0cf3feaf3b5979",
                 "EXECUTION_DECLARATION.json": "5ba73cc0687eb482", "PATHS_DECLARATION.json": "f14e6e968b12a73b",
-                "PAPER_DECLARATION.json": "f75aa3de0dc4278f", "SOUL_META_DECLARATION.json": "dad9b1c21101132b"}
+                "PAPER_DECLARATION.json": "f75aa3de0dc4278f", "SOUL_META_DECLARATION.json": "2cb4d8a4b416fd7c"}
 WIRING_PASS, WIRING_WARN, WIRING_SESSIONS = 0.5, 0.3, 60
 
 
@@ -126,7 +126,7 @@ def check_files(C: Checks) -> None:
     now_bat = HERE.parent / "run_now.bat"
     if not now_bat.exists():
         C.add("WARN", "files", "run_now.bat missing from the main folder (manual runs with progress and a window that stays open)")
-    left = [f for f in ("paper_daily.bat", "soul_meta.py") if (HERE / f).exists()]
+    left = [f for f in ("paper_daily.bat",) if (HERE / f).exists()]
     if left:
         C.add("WARN", "files", f"leftover files to delete from open_close: {left}")
 
